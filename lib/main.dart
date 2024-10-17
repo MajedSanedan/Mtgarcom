@@ -14,7 +14,9 @@ import 'package:comestore/pages/SettingAccountPage.dart';
 import 'package:comestore/pages/ShippingAddressesPage.dart';
 import 'package:comestore/pages/testPage.dart';
 import 'package:comestore/pages/testPage2.dart';
+import 'package:comestore/widgets/Loading.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 //Offers
@@ -33,18 +35,6 @@ class ComeStore extends StatefulWidget {
 }
 
 class _ComeStoreState extends State<ComeStore> {
-  int _selectedIndex = 2;
-  static const List<Widget> _pages = <Widget>[
-    AccountPage(),
-    CartPage(),
-    HomePage()
-  ];
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -59,45 +49,10 @@ class _ComeStoreState extends State<ComeStore> {
               centerTitle: true)),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: LoginPage(),
-        // _pages.elementAt(_selectedIndex),
-        // bottomNavigationBar: Padding(
-        //   padding: const EdgeInsets.all(12),
-        //   child: ClipRRect(
-        //     borderRadius: BorderRadius.circular(12),
-        //     child: BottomNavigationBar(
-        //       selectedIconTheme: IconThemeData(color: Colors.blue),
-        //       backgroundColor: const Color(0xff1E1E1E),
-        //       selectedFontSize: 0,
-        //       items: const [
-        //         BottomNavigationBarItem(
-        //             label: "حسابي",
-        //             icon: Icon(
-        //               Icons.person,
-        //               // color: Colors.white,
-        //             )),
-        //         BottomNavigationBarItem(
-        //             label: "السلة",
-        //             icon: Icon(
-        //               Icons.shopping_bag,
-        //               //color: Colors.white,
-        //             )),
-        //         BottomNavigationBarItem(
-        //             label: "الرائيسية",
-        //             icon: Icon(
-        //               Icons.home,
-        //               // color: Colors.white,
-        //             )),
-        //       ],
-        //       iconSize: 30,
-
-        //       unselectedItemColor: Colors.white,
-        //       currentIndex: _selectedIndex, // العنصر المحدد حاليًا
-        //       selectedItemColor: Colors.blue, // لون العنصر المحدد
-        //       onTap: _onItemTapped, // استدعاء الوظيفة عند النقر
-        //     ),
-        //   ),
-        // ),
+        body: (FirebaseAuth.instance.currentUser != null &&
+                FirebaseAuth.instance.currentUser!.emailVerified)
+            ? HomePage()
+            : LoginPage(),
       ),
     );
   }

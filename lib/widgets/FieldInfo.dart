@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 class FieldInfo extends StatelessWidget {
-  const FieldInfo({super.key, required this.label, this.textedcontroller});
+  const FieldInfo(
+      {super.key, required this.label, this.textedcontroller, this.validator});
   final String label;
   final TextEditingController? textedcontroller;
+  final String? Function(String?)? validator;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -21,16 +23,20 @@ class FieldInfo extends StatelessWidget {
           height: 10,
         ),
         SizedBox(
-          height: 30.87,
+          height: 45.87,
           width: 281.61,
-          child: TextField(
+          child: TextFormField(
+            maxLines: 1,
+            style: TextStyle(fontSize: 16),
+            validator: validator,
             controller: textedcontroller,
             decoration: InputDecoration(
+                errorStyle: TextStyle(fontSize: 10),
                 fillColor: Color(0xffe8e8e8),
                 filled: true,
                 border: OutlineInputBorder()),
           ),
-        )
+        ),
       ],
     );
   }

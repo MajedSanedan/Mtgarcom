@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "310355392418",
-    "project_id": "comestore-21ff8",
-    "storage_bucket": "comestore-21ff8.appspot.com"
+    "project_number": "508952712586",
+    "project_id": "matgrkoom-94c70",
+    "storage_bucket": "matgrkoom-94c70.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:310355392418:android:78e7ef3897f0515337a4fb",
+        "mobilesdk_app_id": "1:508952712586:android:07dde10b5e5eccb050a473",
         "android_client_info": {
           "package_name": "com.example.comestore"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyA64v5es9FOkV1Yyqgfi4-pj2r0JNvdXoY"
+          "current_key": "AIzaSyA2Z202QIrkrRGTGWDTfA5N4rSRALKsjtI"
         }
       ],
       "services": {

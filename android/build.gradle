@@ -34,7 +34,8 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.0'
-        classpath 'com.google.gms:google-services:4.4.2' // تأكد من وجود هذه السطر
+        classpath 'com.google.gms:google-services:4.4.2'
+        // تأكد من وجود هذه السطر
     }
 }
 

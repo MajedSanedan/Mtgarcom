@@ -12,8 +12,8 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 111,
-      width: 124,
+      height: 150,
+      width: 135,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(7),
           border: Border.all(
