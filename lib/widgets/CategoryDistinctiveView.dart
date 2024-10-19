@@ -1,41 +1,32 @@
+import 'package:comestore/firebase/FireStoreGet.dart';
 import 'package:comestore/models/CategoryModel.dart';
 import 'package:comestore/widgets/CategoryDistinctiveCard.dart';
 import 'package:flutter/material.dart';
 
-class CategoryDistinctiveView extends StatelessWidget {
-  const CategoryDistinctiveView({
+class CategoryDistinctiveView extends StatefulWidget {
+  CategoryDistinctiveView({
     super.key,
   });
-  final List<CategoryModel> Categories = const [
-    CategoryModel(
-      name: "الإلكترونيات",
-      imagUrl: "assets/images/imageCategory/Electronics.png",
-    ),
-    CategoryModel(
-      name: "الاثاث والديكور",
-      imagUrl: "assets/images/imageCategory/Furniture.png",
-    ),
-    CategoryModel(
-      name: "الدراسة",
-      imagUrl: "assets/images/imageCategory/StudySupplies.png",
-    ),
-    CategoryModel(
-      name: " العناية والجمال",
-      imagUrl: "assets/images/imageCategory/Care_and_beauty.png",
-    ),
-    CategoryModel(
-      name: "معدات",
-      imagUrl: "assets/images/imageCategory/Equipment.png",
-    ),
-    CategoryModel(
-      name: "ملابس رجالية",
-      imagUrl: "assets/images/imageCategory/Men's_clothing.png",
-    ),
-    CategoryModel(
-      name: "اواني",
-      imagUrl: "assets/images/imageCategory/Utensils.png",
-    ),
-  ];
+
+  @override
+  State<CategoryDistinctiveView> createState() =>
+      _CategoryDistinctiveViewState();
+}
+
+class _CategoryDistinctiveViewState extends State<CategoryDistinctiveView> {
+  List<CategoryModel> Categories = [];
+
+  FirestoreGet firestoreGet = FirestoreGet();
+
+  bool isLoading = true;
+
+  Future<void> getData() async {
+    Categories = await firestoreGet.getCategories();
+    setState(() {
+      isLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(

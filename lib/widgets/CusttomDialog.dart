@@ -2,17 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class CusttomDialog extends StatelessWidget {
-  const CusttomDialog({
-    super.key,
-    required this.icon,
-    required this.title,
-    required this.Message,
-    this.color,
-  });
+  const CusttomDialog(
+      {super.key,
+      required this.icon,
+      required this.title,
+      required this.Message,
+      this.color,
+      this.ok,
+      this.edit});
   final IconData icon;
   final String title;
   final String Message;
   final Color? color;
+  final Function()? ok;
+  final Function()? edit;
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -46,19 +49,43 @@ class CusttomDialog extends StatelessWidget {
             fontSize: 18),
       ),
       actions: <Widget>[
-        TextButton(
-          child: Center(
-              child: Text(
-            "مـــوفــق",
-            style: TextStyle(
-                color: Color(0xff1E1E1E),
-                fontFamily: "IBM Plex Sans Arabic",
-                fontWeight: FontWeight.w600,
-                fontSize: 18),
-          )),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
+        Row(
+          children: [
+            TextButton(
+              child: Center(
+                  child: Text(
+                edit != null ? "حـــذف" : "مــــوفق",
+                style: TextStyle(
+                    color: Color(0xff1E1E1E),
+                    fontFamily: "IBM Plex Sans Arabic",
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18),
+              )),
+              onPressed: ok == null
+                  ? () {
+                      Navigator.of(context).pop();
+                    }
+                  : ok,
+            ),
+            edit != null
+                ? TextButton(
+                    child: Center(
+                        child: Text(
+                      "تــعــديــل",
+                      style: TextStyle(
+                          color: Color(0xff1E1E1E),
+                          fontFamily: "IBM Plex Sans Arabic",
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18),
+                    )),
+                    onPressed: edit == null
+                        ? () {
+                            Navigator.of(context).pop();
+                          }
+                        : edit,
+                  )
+                : SizedBox(),
+          ],
         ),
       ],
     );

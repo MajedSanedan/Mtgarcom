@@ -1,9 +1,10 @@
+import 'package:comestore/models/ProductModel.dart';
 import 'package:comestore/widgets/MainTitle.dart';
 import 'package:flutter/material.dart';
 
 class ProductPage extends StatelessWidget {
-  const ProductPage({super.key});
-
+  const ProductPage({super.key, required this.productModel});
+  final ProductModel productModel;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +23,9 @@ class ProductPage extends StatelessWidget {
               ),
               MainTitle(
                 title: "تفاصيل المنتج",
-                ontap: () {},
+                ontap: () {
+                  Navigator.pop(context);
+                },
               ),
               const SizedBox(
                 height: 20,
@@ -32,34 +35,27 @@ class ProductPage extends StatelessWidget {
                 width: 351,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage(
-                          "assets/images/imagesProducts/bags.png",
-                        )),
-                    borderRadius: BorderRadius.circular(7)),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Container(
-                height: 77.08,
-                width: 351,
-                decoration: BoxDecoration(
+                        fit: BoxFit.contain,
+                        image: (productModel.imageUrl == null ||
+                                productModel.imageUrl == "")
+                            ? AssetImage(
+                                "assets/images/imageCategory/Electronics.png")
+                            : NetworkImage(productModel.imageUrl!)),
                     color: const Color(0xffe8e8e8),
                     borderRadius: BorderRadius.circular(7)),
-                child: const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    textAlign: TextAlign.end,
-                    maxLines: 2,
-                    overflow: TextOverflow.clip,
-                    "حقيبة أنيقة وعملية مصممة لتلبية احتياجاتك اليومية. مصنوعة من مواد عالية الجودة لضمان المتانة وتحمل الاستخدام المتكرر. تتميز الحقيبة بمساحة واسعة متعددة الجيوب لتخزين أغراضك الشخصية مثل الهاتف",
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.black,
-                        fontFamily: "IBM Plex Sans Arabic",
-                        fontWeight: FontWeight.w600),
-                  ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  textAlign: TextAlign.end,
+                  maxLines: 2,
+                  overflow: TextOverflow.clip,
+                  productModel.describtion!,
+                  style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.black,
+                      fontFamily: "IBM Plex Sans Arabic",
+                      fontWeight: FontWeight.w600),
                 ),
               ),
               const SizedBox(

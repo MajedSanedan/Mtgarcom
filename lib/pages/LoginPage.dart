@@ -143,8 +143,9 @@ class _LoginPageState extends State<LoginPage> {
                               email: email.text, passowrd: password.text);
 
                           await userAuth.Login(userModel, context);
-
-                          isLoading = false;
+                          setState(() {
+                            isLoading = false;
+                          });
                         } else {
                           print("Can not be empty");
                         }

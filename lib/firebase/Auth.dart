@@ -42,22 +42,22 @@ class UserAuth {
     try {
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: user.email, password: user.passowrd);
-      if (credential.user!.emailVerified) {
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => HomePage()));
-      } else {
-        showDialog(
-            context: context,
-            builder: (context) {
-              return CusttomDialog(
-                color: Colors.red,
-                title: "خـــطــاء",
-                icon: Icons.warning,
-                Message:
-                    "الرجاء التاكد من بريدك ارسلنا لك رابط التحق الى ${FirebaseAuth.instance.currentUser!.email}",
-              );
-            });
-      }
+      // if (credential.user!.emailVerified) {
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
+      // } else {
+      //   showDialog(
+      //       context: context,
+      //       builder: (context) {
+      //         return CusttomDialog(
+      //           color: Colors.red,
+      //           title: "خـــطــاء",
+      //           icon: Icons.warning,
+      //           Message:
+      //               "الرجاء التاكد من بريدك ارسلنا لك رابط التحق الى ${FirebaseAuth.instance.currentUser!.email}",
+      //         );
+      //       });
+      // }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-credential') {
         showDialog(

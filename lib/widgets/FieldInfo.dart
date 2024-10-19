@@ -2,10 +2,17 @@ import 'package:flutter/material.dart';
 
 class FieldInfo extends StatelessWidget {
   const FieldInfo(
-      {super.key, required this.label, this.textedcontroller, this.validator});
+      {super.key,
+      required this.label,
+      this.textedcontroller,
+      this.validator,
+      this.maxline = 1,
+      this.hieght = 45.87});
   final String label;
   final TextEditingController? textedcontroller;
   final String? Function(String?)? validator;
+  final int? maxline;
+  final double? hieght;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -23,10 +30,10 @@ class FieldInfo extends StatelessWidget {
           height: 10,
         ),
         SizedBox(
-          height: 45.87,
+          height: hieght,
           width: 281.61,
           child: TextFormField(
-            maxLines: 1,
+            maxLines: maxline,
             style: TextStyle(fontSize: 16),
             validator: validator,
             controller: textedcontroller,

@@ -3,14 +3,15 @@ import 'dart:ui';
 import 'package:comestore/models/ProductModel.dart';
 import 'package:flutter/material.dart';
 
-class ProductCard extends StatelessWidget {
-  const ProductCard({super.key, required this.productModel, this.ontap});
+class AdminProductCard extends StatelessWidget {
+  const AdminProductCard(
+      {super.key, required this.productModel, this.onLongPress});
   final ProductModel productModel;
-  final Function()? ontap;
+  final Function()? onLongPress;
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: ontap,
+      onLongPress: onLongPress,
       child: Container(
         height: 150,
         width: 135,

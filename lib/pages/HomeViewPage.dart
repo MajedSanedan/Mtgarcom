@@ -1,19 +1,17 @@
 import 'package:comestore/pages/CategoriesPage.dart';
+import 'package:comestore/pages/ManagmentCategories.dart';
 import 'package:comestore/pages/ProductsViewPage.dart';
 import 'package:comestore/widgets/BanerHome.dart';
-import 'package:comestore/widgets/CategoryDistinctiveView.dart';
 import 'package:comestore/widgets/ProductDistinctiveView.dart';
 import 'package:comestore/widgets/SearchTextField.dart';
 import 'package:comestore/widgets/SectionHomeView.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 List<String> images = [
-  "assets/images/imagesBaner/ezero.png",
-  "assets/images/imagesBaner/fireBasewithFlutter.jpg",
-  "assets/images/imagesBaner/Fluttertraining.JPG",
-  "assets/images/imagesBaner/flutter.png",
-  "assets/images/imagesBaner/git.webp",
-  "assets/images/imagesBaner/html.png",
+  "assets/images/imagesBaner/Artboard1.jpg",
+  "assets/images/imagesBaner/Artboard2.jpg",
+  "assets/images/imagesBaner/Artboard3.jpg",
 ];
 
 class HomeViewPage extends StatelessWidget {
@@ -80,10 +78,10 @@ class HomeViewPage extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 120,
-                child: CategoryDistinctiveView(),
-              ),
+              // SizedBox(
+              //   height: 120,
+              //   child: CategoryDistinctiveView(),
+              // ),
               const SizedBox(
                 height: 20,
               ),
@@ -115,7 +113,36 @@ class HomeViewPage extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 150, child: ProductDistinctiVeview())
+              SizedBox(height: 150, child: ProductDistinctiVeview()),
+              SizedBox(
+                height: 20,
+              ),
+              FirebaseAuth.instance.currentUser!.email ==
+                      "majedsanedan@gmail.com"
+                  ? InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => MnaagmentCategoriesPage()));
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: const Color(0xff1E1E1E),
+                            borderRadius: BorderRadius.circular(7)),
+                        height: 49.95,
+                        width: 351,
+                        child: Center(
+                          child: Text(
+                            "إدارة المنتجات والاصناف",
+                            style: const TextStyle(
+                                color: Color(0xffFFFFFF),
+                                fontFamily: "IBM Plex Sans Arabic",
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18),
+                          ),
+                        ),
+                      ),
+                    )
+                  : SizedBox()
               // ProductCard()
             ],
           ),

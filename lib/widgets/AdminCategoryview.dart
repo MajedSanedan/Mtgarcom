@@ -1,25 +1,27 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:comestore/firebase/FireStorCategoryEdit.dart';
+import 'package:comestore/firebase/FireStoreDelete.dart';
 import 'package:comestore/firebase/FireStoreGet.dart';
 import 'package:comestore/models/CategoryModel.dart';
+import 'package:comestore/widgets/AdminCateogryCard.dart';
 import 'package:comestore/widgets/CategoryCard.dart';
 import 'package:comestore/widgets/Loading.dart';
 import 'package:flutter/material.dart';
 
-class CategoryVew extends StatefulWidget {
-  CategoryVew({
+class AdminCategoryView extends StatefulWidget {
+  const AdminCategoryView({
     super.key,
   });
 
   @override
-  State<CategoryVew> createState() => _CategoryVewState();
+  State<AdminCategoryView> createState() => _AdminCategoryViewState();
 }
 
-class _CategoryVewState extends State<CategoryVew> {
+class _AdminCategoryViewState extends State<AdminCategoryView> {
   List<CategoryModel> Categories = [];
-
   FirestoreGet firestoreGet = FirestoreGet();
-
+  FireStorCategoryEdit fireStoreEdit = FireStorCategoryEdit();
   bool isLoading = true;
-
   Future<void> getData() async {
     Categories = await firestoreGet.getCategories();
     setState(() {
@@ -30,11 +32,11 @@ class _CategoryVewState extends State<CategoryVew> {
   @override
   void initState() {
     // TODO: implement initState
+
     super.initState();
     getData();
   }
 
-  // final List<CategoryModel> Categories = [
   @override
   Widget build(BuildContext context) {
     return isLoading
@@ -44,7 +46,12 @@ class _CategoryVewState extends State<CategoryVew> {
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
-                child: CategoryCard(categoryModel: Categories[index]),
+                child: AdminCategoryCard(
+                  categoryModel: Categories[index],
+                  onLongPress: () {
+                    fireStoreEdit.Updat(context, Categories[index]);
+                  },
+                ),
               );
             });
   }

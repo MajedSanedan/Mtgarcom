@@ -78,8 +78,8 @@ class _BanerHomeState extends State<BanerHome> {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: _currentPage == index
-                      ? const Color(0xff1E1E1E)
-                      : const Color(0xffD9D9D9),
+                      ? Colors.white
+                      : const Color(0xff1E1E1E),
                 ),
               );
             }),

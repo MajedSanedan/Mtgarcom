@@ -16,7 +16,7 @@ class CategoryDistinctiveCard extends StatelessWidget {
           width: 90,
           decoration: BoxDecoration(
               image: DecorationImage(
-                  fit: BoxFit.cover, image: AssetImage(category.imagUrl))),
+                  fit: BoxFit.cover, image: NetworkImage(category.imageUrl!))),
         ),
         const SizedBox(
           height: 3,

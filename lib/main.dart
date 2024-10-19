@@ -49,8 +49,9 @@ class _ComeStoreState extends State<ComeStore> {
               centerTitle: true)),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: (FirebaseAuth.instance.currentUser != null &&
-                FirebaseAuth.instance.currentUser!.emailVerified)
+        body: FirebaseAuth.instance.currentUser != null
+            // (FirebaseAuth.instance.currentUser != null &&
+            //         FirebaseAuth.instance.currentUser!.emailVerified)
             ? HomePage()
             : LoginPage(),
       ),

@@ -1,27 +1,24 @@
+import 'dart:ffi';
+
 import 'package:comestore/models/CategoryModel.dart';
 import 'package:comestore/pages/ManagmentProduct.dart';
-import 'package:comestore/pages/ProductPage.dart';
-import 'package:comestore/pages/ProductsViewPage.dart';
-import 'package:comestore/widgets/ProductView.dart';
 import 'package:flutter/material.dart';
 
-class CategoryCard extends StatelessWidget {
-  const CategoryCard({
-    super.key,
-    required this.categoryModel,
-  });
+class AdminCategoryCard extends StatelessWidget {
+  const AdminCategoryCard(
+      {super.key, required this.categoryModel, this.onLongPress});
   final CategoryModel categoryModel;
+  final Function()? onLongPress;
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         InkWell(
+          onLongPress: onLongPress,
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => ProductsViewPage(
-                      nameCategory: categoryModel.name,
-                    )));
+                builder: (context) => ManagmentProductsPage()));
           },
           child: Container(
             height: 77.84,
