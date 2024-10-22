@@ -44,11 +44,10 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "مــتـجـر كـــــوم ",
-          style: TextStyle(fontSize: 24),
-        ),
-      ),
+          title: const Text(
+        "مــــــتــــــجــــــــــــــر  كـــــــــــــــوم",
+        style: TextStyle(fontSize: 20),
+      )),
       body: isLoading
           ? Loading()
           : Center(
@@ -103,7 +102,9 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                                   ontap: () async {
                                     imageUrl = await fireStorgeUpLoad
                                         .getImage(imageUrl);
-                                    setState(() {});
+                                    if (mounted) {
+                                      setState(() {});
+                                    }
                                   },
                                 ),
                               ),
@@ -121,18 +122,23 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                     CustomButton(
                         text: "إضــــافـــة",
                         ontap: () async {
-                          setState(() {
-                            isLoading = true;
-                          });
+                          if (mounted) {
+                            setState(() {
+                              isLoading = true;
+                            });
+                          }
+
                           categoryModel = CategoryModel(
                             id: generateRandomInt(1000).toString(),
                             name: name.text,
                             imageUrl: imageUrl,
                           );
                           Category.AddCategories(categoryModel, context);
-                          setState(() {
-                            isLoading = false;
-                          });
+                          if (mounted) {
+                            setState(() {
+                              isLoading = false;
+                            });
+                          }
                         }),
                     // (categoryModel.imageUrl != null ||
                     //         categoryModel.imageUrl != "")

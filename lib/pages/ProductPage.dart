@@ -1,16 +1,28 @@
+import 'package:comestore/firebase/FireStoreAdd.dart';
 import 'package:comestore/models/ProductModel.dart';
+import 'package:comestore/widgets/CusttomButton.dart';
 import 'package:comestore/widgets/MainTitle.dart';
 import 'package:flutter/material.dart';
 
-class ProductPage extends StatelessWidget {
+class ProductPage extends StatefulWidget {
   const ProductPage({super.key, required this.productModel});
   final ProductModel productModel;
+
+  @override
+  State<ProductPage> createState() => _ProductPageState();
+}
+
+class _ProductPageState extends State<ProductPage> {
+  int counter = 1;
+  FireStoreAdd fireStoreAdd = FireStoreAdd();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:
-            const Text(" مــتـجـر كـــــــــــــوم - المــــــنـــتجـــــات "),
+        title: Text(
+          "مــــــتــــــجــــــــــــــر  كـــــــــــــــوم",
+          style: TextStyle(fontSize: 20),
+        ),
       ),
       body: Center(
         child: Padding(
@@ -36,11 +48,11 @@ class ProductPage extends StatelessWidget {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.contain,
-                        image: (productModel.imageUrl == null ||
-                                productModel.imageUrl == "")
+                        image: (widget.productModel.imageUrl == null ||
+                                widget.productModel.imageUrl == "")
                             ? AssetImage(
                                 "assets/images/imageCategory/Electronics.png")
-                            : NetworkImage(productModel.imageUrl!)),
+                            : NetworkImage(widget.productModel.imageUrl!)),
                     color: const Color(0xffe8e8e8),
                     borderRadius: BorderRadius.circular(7)),
               ),
@@ -50,7 +62,7 @@ class ProductPage extends StatelessWidget {
                   textAlign: TextAlign.end,
                   maxLines: 2,
                   overflow: TextOverflow.clip,
-                  productModel.describtion!,
+                  widget.productModel.describtion!,
                   style: TextStyle(
                       fontSize: 18,
                       color: Colors.black,
@@ -80,14 +92,17 @@ class ProductPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        counter--;
+                        setState(() {});
+                      },
                       icon: const Icon(
                         Icons.remove,
                         size: 18,
                       ),
                     ),
-                    const Text(
-                      "3",
+                    Text(
+                      counter.toString(),
                       style: TextStyle(
                           color: Color(0xff1E1E1E),
                           fontFamily: "IBM Plex Sans Arabic",
@@ -95,7 +110,10 @@ class ProductPage extends StatelessWidget {
                           fontSize: 16),
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        counter++;
+                        setState(() {});
+                      },
                       icon: const Icon(
                         Icons.add,
                         size: 18,
@@ -121,14 +139,21 @@ class ProductPage extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: const Color(0xffe8e8e8),
                       borderRadius: BorderRadius.circular(3)),
-                  child: const Center(
-                    child: Text("34\$",
+                  child: Center(
+                    child: Text(
+                        (widget.productModel.price * counter).toString(),
                         style: TextStyle(
                             color: Color(0xff1E1E1E),
                             fontFamily: "IBM Plex Sans Arabic",
                             fontWeight: FontWeight.w600,
                             fontSize: 16)),
-                  ))
+                  )),
+              CustomButton(
+                  text: "إضافة إلى السلة",
+                  ontap: () async {
+                    fireStoreAdd.AddProductToCart(
+                        widget.productModel, counter, context);
+                  })
             ],
           ),
         ),

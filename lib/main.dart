@@ -12,8 +12,6 @@ import 'package:comestore/pages/ProductsViewPage.dart';
 import 'package:comestore/pages/RegisterPage.dart';
 import 'package:comestore/pages/SettingAccountPage.dart';
 import 'package:comestore/pages/ShippingAddressesPage.dart';
-import 'package:comestore/pages/testPage.dart';
-import 'package:comestore/pages/testPage2.dart';
 import 'package:comestore/widgets/Loading.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -49,9 +47,8 @@ class _ComeStoreState extends State<ComeStore> {
               centerTitle: true)),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: FirebaseAuth.instance.currentUser != null
-            // (FirebaseAuth.instance.currentUser != null &&
-            //         FirebaseAuth.instance.currentUser!.emailVerified)
+        body: (FirebaseAuth.instance.currentUser != null &&
+                FirebaseAuth.instance.currentUser!.emailVerified)
             ? HomePage()
             : LoginPage(),
       ),

@@ -52,11 +52,10 @@ class _EditProductPageState extends State<EditProductPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "مــتـجـر كـــــوم ",
-          style: TextStyle(fontSize: 24),
-        ),
-      ),
+          title: const Text(
+        "مــــــتــــــجــــــــــــــر  كـــــــــــــــوم",
+        style: TextStyle(fontSize: 20),
+      )),
       body: isLoading
           ? Loading()
           : Center(

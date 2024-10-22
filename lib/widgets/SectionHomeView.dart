@@ -13,11 +13,6 @@ class SectionHomeView extends StatelessWidget {
 
   final List<SectionHomeModel> itemSectionHom = [
     SectionHomeModel(
-      ontap: (context) {
-        print("==================================================fdd");
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => BrandsPage()));
-      },
       name: "العلامات التجارية",
       imageIcon: "assets/images/imageIcons/Trademark.png",
     ),

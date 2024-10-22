@@ -1,6 +1,7 @@
 import 'package:comestore/firebase/FireStoreGet.dart';
 import 'package:comestore/models/CategoryModel.dart';
 import 'package:comestore/widgets/CategoryDistinctiveCard.dart';
+import 'package:comestore/widgets/Loading.dart';
 import 'package:flutter/material.dart';
 
 class CategoryDistinctiveView extends StatefulWidget {
@@ -28,16 +29,27 @@ class _CategoryDistinctiveViewState extends State<CategoryDistinctiveView> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getData();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: Categories.length,
-        scrollDirection: Axis.horizontal,
-        reverse: true,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: CategoryDistinctiveCard(category: Categories[index]),
-          );
-        });
+    return isLoading
+        ? Center(
+            child: CircularProgressIndicator(),
+          )
+        : ListView.builder(
+            itemCount: Categories.length,
+            scrollDirection: Axis.horizontal,
+            reverse: true,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CategoryDistinctiveCard(category: Categories[index]),
+              );
+            });
   }
 }

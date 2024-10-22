@@ -1,4 +1,5 @@
 import 'package:comestore/firebase/Auth.dart';
+import 'package:comestore/firebase/FireStoreAdd.dart';
 import 'package:comestore/models/UserModel.dart';
 import 'package:comestore/pages/HomePage.dart';
 import 'package:comestore/pages/LoginPage.dart';
@@ -22,10 +23,14 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController email = TextEditingController();
 
   final TextEditingController password = TextEditingController();
+  final TextEditingController phone = TextEditingController();
+
+  final TextEditingController address = TextEditingController();
   late UserModel userModel;
+  late UserAddressModel userAddreesModel;
   final UserAuth userAuth = UserAuth();
   GlobalKey<FormState> formstate = GlobalKey<FormState>();
-
+  FireStoreAdd fireStoreAdd = FireStoreAdd();
   @override
   void initState() {
     // TODO: implement initState
@@ -38,11 +43,10 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "متـــــــــــــــجـــــــــــــر  كــــــــــــــــوم ",
-          style: TextStyle(fontSize: 24),
-        ),
-      ),
+          title: const Text(
+        "مــــــتــــــجــــــــــــــر  كـــــــــــــــوم",
+        style: TextStyle(fontSize: 20),
+      )),
       body: IsLoading
           ? Loading()
           : Center(
@@ -70,7 +74,9 @@ class _RegisterPageState extends State<RegisterPage> {
                           flex: 1,
                         ),
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
                           child: Text(
                             "تسجيل الدخول",
                             style: TextStyle(
@@ -101,7 +107,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     Container(
                       width: 351,
-                      height: 352.54,
+                      height: 450.54,
                       decoration: BoxDecoration(
                           color: const Color(0xffe8e8e8),
                           borderRadius: BorderRadius.circular(7)),
@@ -139,8 +145,16 @@ class _RegisterPageState extends State<RegisterPage> {
                                     }
                                   }),
                               FieldInfo(
-                                  label: "تاكيد كلمة المرور",
-                                  textedcontroller: password,
+                                  label: "الــجــوال",
+                                  textedcontroller: phone,
+                                  validator: (val) {
+                                    if (val == "") {
+                                      return "لايمكنك تركه فارغا";
+                                    }
+                                  }),
+                              FieldInfo(
+                                  label: "الــعــنــوان",
+                                  textedcontroller: address,
                                   validator: (val) {
                                     if (val == "") {
                                       return "لايمكنك تركه فارغا";
@@ -162,11 +176,17 @@ class _RegisterPageState extends State<RegisterPage> {
                             IsLoading = true;
                           });
                           userModel = UserModel(
+                            email: email.text,
+                            passowrd: password.text,
+                          );
+                          userAddreesModel = UserAddressModel(
                               name: name.text,
                               email: email.text,
-                              passowrd: password.text);
-
+                              phone: phone.text,
+                              address: address.text);
                           await userAuth.Register(userModel);
+                          await fireStoreAdd.AddUserAddress(
+                              userAddreesModel, context);
                           IsLoading = false;
                           userAuth.SendEmailVerify();
 

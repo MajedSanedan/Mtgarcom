@@ -10,18 +10,10 @@ class CategoriesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Column(
-          children: [
-            // Text(" مــتـجـر كـــــــــــــوم - الأقسام"),
-            SearchTextField(
-              hintext: "الــــبــحــث في الأقسام الرائيسية",
-            ),
-            SizedBox(
-              height: 5,
-            )
-          ],
-        ),
-      ),
+          title: Text(
+        "مــــــتــــــجــــــــــــــر  كـــــــــــــــوم",
+        style: TextStyle(fontSize: 20),
+      )),
       body: Center(
         child: Column(
           children: [

@@ -26,7 +26,7 @@ class AddressWidget extends StatelessWidget {
             Row(
               children: [
                 const Text(
-                  "تعديل",
+                  "",
                   style: TextStyle(
                       fontSize: 14,
                       color: Colors.black,

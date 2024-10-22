@@ -1,55 +1,67 @@
+import 'package:comestore/firebase/FireStoreGet.dart';
 import 'package:comestore/models/ProductModel.dart';
+import 'package:comestore/pages/ProductPage.dart';
 import 'package:comestore/widgets/ProductCard.dart';
 import 'package:flutter/material.dart';
 
-class ProductDistinctiVeview extends StatelessWidget {
-  ProductDistinctiVeview({
-    super.key,
-  });
-  final List<ProductModel> products = [
-    ProductModel(
-        name: "ماوس لاسلكي",
-        imageUrl: "assets/images/imagesProducts/mouse.png",
-        price: 11.5),
-    ProductModel(
-        name: "حقائب سفر  ",
-        imageUrl: "assets/images/imagesProducts/bags.png",
-        price: 11.5),
-    ProductModel(
-        name: " أديداس تريفويل",
-        imageUrl:
-            "assets/images/imagesProducts/AdidasOriginalsTrefoilHoodie.png",
-        price: 11.5),
-    ProductModel(
-        name: "أديداس غازيل",
-        imageUrl: "assets/images/imagesProducts/AdidasGazelle.png",
-        price: 11.5),
-    ProductModel(
-        name: "أديداس سينشالز",
-        imageUrl:
-            "assets/images/imagesProducts/AdidasEssentialsFleeceSweatshirt.png",
-        price: 11.5),
-    ProductModel(
-        name: "جاكيت تدريب ",
-        imageUrl:
-            "assets/images/imagesProducts/AdidasCondivo22TrainingJacket.png",
-        price: 11.5),
-    ProductModel(
-        name: " أديداس أديليت",
-        imageUrl: "assets/images/imagesProducts/AdidasAdiletteSlides.png",
-        price: 11.5),
-  ];
+class ProductDistinctiVeview extends StatefulWidget {
+  ProductDistinctiVeview(
+      {super.key,
+      this.axis = Axis.horizontal,
+      this.across = 1,
+      required this.reverse});
+  Axis? axis;
+  int? across;
+  final bool reverse;
+  @override
+  State<ProductDistinctiVeview> createState() => _ProductDistinctiVeviewState();
+}
+
+class _ProductDistinctiVeviewState extends State<ProductDistinctiVeview> {
+  List<ProductModel> products = [];
+
+  FirestoreGet firestoreGet = FirestoreGet();
+
+  bool isLoading = true;
+
+  Future<void> getData() async {
+    products = await firestoreGet.getBestSallerProducts();
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getData();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: products.length,
-        scrollDirection: Axis.horizontal,
-        reverse: true,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ProductCard(productModel: products[index]),
-          );
-        });
+    return isLoading
+        ? Center(
+            child: CircularProgressIndicator(),
+          )
+        : GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: widget.across!),
+            itemCount: products.length,
+            scrollDirection: widget.axis!,
+            reverse: widget.reverse,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ProductCard(
+                  productModel: products[index],
+                  ontap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            ProductPage(productModel: products[index])));
+                  },
+                ),
+              );
+            });
   }
 }

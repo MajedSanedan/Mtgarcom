@@ -34,11 +34,10 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "متـــــــــــــــجـــــــــــــر  كــــــــــــــــوم ",
-          style: TextStyle(fontSize: 24),
-        ),
-      ),
+          title: const Text(
+        "مــــــتــــــجــــــــــــــر  كـــــــــــــــوم",
+        style: TextStyle(fontSize: 20),
+      )),
       body: isLoading
           ? Loading()
           : Center(

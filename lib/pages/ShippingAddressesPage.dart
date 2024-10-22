@@ -10,7 +10,10 @@ class ShippingAddressesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(" مــتـجـر كـــــــــــــوم - الأعـــــدادت "),
+        title: const Text(
+          " مــتـجـر كـــــــــــــوم - الأعـــــدادت ",
+          style: TextStyle(fontSize: 20),
+        ),
       ),
       floatingActionButton: Container(
           decoration: BoxDecoration(

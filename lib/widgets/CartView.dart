@@ -1,50 +1,51 @@
+import 'dart:async';
+
+import 'package:comestore/firebase/FireStoreGet.dart';
 import 'package:comestore/models/ProductModel.dart';
 import 'package:comestore/widgets/CartInfo.dart';
 import 'package:comestore/widgets/CartItem.dart';
+import 'package:comestore/widgets/CusttomButton.dart';
 import 'package:flutter/material.dart';
 
 double totalprice = 10;
 
-class CartView extends StatelessWidget {
+class CartView extends StatefulWidget {
   CartView({super.key});
-  final List<ProductModel> products = [
-    ProductModel(
-        name: "ماوس لاسلكي",
-        imageUrl: "assets/images/imagesProducts/mouse.png",
-        price: 11.5),
-    ProductModel(
-        name: "حقائب سفر  ",
-        imageUrl: "assets/images/imagesProducts/bags.png",
-        price: 11.5),
-    ProductModel(
-        name: " أديداس تريفويل",
-        imageUrl:
-            "assets/images/imagesProducts/AdidasOriginalsTrefoilHoodie.png",
-        price: 11.5),
-    ProductModel(
-        name: "أديداس غازيل",
-        imageUrl: "assets/images/imagesProducts/AdidasGazelle.png",
-        price: 11.5),
-    ProductModel(
-        name: "أديداس سينشالز",
-        imageUrl:
-            "assets/images/imagesProducts/AdidasEssentialsFleeceSweatshirt.png",
-        price: 11.5),
-    ProductModel(
-        name: "جاكيت تدريب ",
-        imageUrl:
-            "assets/images/imagesProducts/AdidasCondivo22TrainingJacket.png",
-        price: 11.5),
-    ProductModel(
-        name: " أديداس أديليت",
-        imageUrl: "assets/images/imagesProducts/AdidasAdiletteSlides.png",
-        price: 20.5),
-  ];
-  getTotalPrice(List<ProductModel> price) {
-    for (int i = 0; i < price.length; i++) {
-      totalprice += price[i].price * price[i].count;
+
+  @override
+  State<CartView> createState() => _CartViewState();
+}
+
+class _CartViewState extends State<CartView> {
+  List<ProductModel> products = [];
+
+  FirestoreGet firestoreGet = FirestoreGet();
+
+  bool isLoading = true;
+  double total = 0;
+
+  Future<void> getData() async {
+    products = await firestoreGet.getItemsFromCart();
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  getTotalPrice() {
+    totalprice = 0;
+    for (int i = 0; i < products.length; i++) {
+      totalprice += products[i].price * products[i].sllercount!.toDouble();
+      setState(() {});
     }
     return totalprice;
+  }
+
+  @override
+  void initState() {
+    getTotalPrice();
+    // TODO: implement initState
+    super.initState();
+    getData();
   }
 
   @override
@@ -56,17 +57,22 @@ class CartView extends StatelessWidget {
               itemCount: products.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                mainAxisSpacing: 8,
-                crossAxisSpacing: 8,
+                mainAxisSpacing: 4,
+                crossAxisSpacing: 4,
               ),
               itemBuilder: (context, index) {
                 return CartItem(productModel: products[index]);
               }),
         ),
+        CustomButton(
+            text: "احسب السعر لاجمالي",
+            ontap: () {
+              getTotalPrice();
+            }),
         const SizedBox(
           height: 20,
         ),
-        CartInfo(totalPrice: getTotalPrice(products), count: products.length)
+        CartInfo(totalPrice: getTotalPrice(), count: products.length)
       ],
     );
   }

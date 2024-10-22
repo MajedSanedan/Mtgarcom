@@ -13,10 +13,10 @@ class ManagmentProductsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const SearchTextField(
-          hintext: "الــــبــحــث في المنتجات   ",
-        ),
-      ),
+          title: Text(
+        "مــــــتــــــجــــــــــــــر  كـــــــــــــــوم",
+        style: TextStyle(fontSize: 20),
+      )),
       floatingActionButton: Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(7), color: Color(0xffD9D9D9)),

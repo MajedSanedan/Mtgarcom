@@ -10,10 +10,10 @@ class ProductsViewPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const SearchTextField(
-          hintext: "الــــبــحــث في المنتجات   ",
-        ),
-      ),
+          title: Text(
+        "مــــــتــــــجــــــــــــــر  كـــــــــــــــوم",
+        style: TextStyle(fontSize: 20),
+      )),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),

@@ -9,7 +9,10 @@ class AddAddressPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(" مــتـجـر كـــــــــــــوم - الأعـــــدادت "),
+        title: const Text(
+          " مــتـجـر كـــــــــــــوم - الأعـــــدادت ",
+          style: TextStyle(fontSize: 20),
+        ),
       ),
       body: Center(
         child: Padding(
@@ -31,7 +34,7 @@ class AddAddressPage extends StatelessWidget {
               ),
               Container(
                 width: 351,
-                height: 230,
+                height: 300,
                 decoration: BoxDecoration(
                     color: const Color(0xffe8e8e8),
                     borderRadius: BorderRadius.circular(7)),

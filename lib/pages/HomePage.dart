@@ -1,3 +1,7 @@
+import 'dart:async';
+
+import 'package:comestore/firebase/FireStoreGet.dart';
+import 'package:comestore/models/ProductModel.dart';
 import 'package:comestore/pages/AccountPage.dart';
 import 'package:comestore/pages/CartPage.dart';
 import 'package:comestore/pages/CategoriesPage.dart';
@@ -11,18 +15,48 @@ import 'package:comestore/widgets/SectionHomeView.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
+  const HomePage({super.key, this.index = 2});
+  final int index;
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 2;
+  List<ProductModel> products = [];
 
+  FirestoreGet firestoreGet = FirestoreGet();
+  Future<void> getData() async {
+    products = await firestoreGet.getItemsFromCart();
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  late int _selectedIndex;
+  Timer? _timer;
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
+    if (mounted) {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
+  }
+
+  // void _startAutoRefresh() {
+  //   _timer = Timer.periodic(Duration(seconds: 5), (Timer timer) {
+  //     setState(() {
+  //       getData(); // Refresh data (e.g., fetch new data from API)
+  //     });
+  //   });
+  // }
+  void _startAutoRefresh() {
+    _timer = Timer.periodic(Duration(seconds: 5), (Timer timer) {
+      if (mounted) {
+        // تحقق مما إذا كان الويدجت لا يزال موجودًا
+        setState(() {
+          getData(); // تحديث البيانات
+        });
+      }
     });
   }
 
@@ -31,6 +65,21 @@ class _HomePageState extends State<HomePage> {
     CartPage(),
     HomeViewPage()
   ];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _selectedIndex = widget.index;
+    getData();
+    _startAutoRefresh();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _timer?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +93,7 @@ class _HomePageState extends State<HomePage> {
             selectedIconTheme: IconThemeData(color: Colors.blue),
             backgroundColor: const Color(0xff1E1E1E),
             selectedFontSize: 0,
-            items: const [
+            items: [
               BottomNavigationBarItem(
                   label: "حسابي",
                   icon: Icon(
@@ -52,11 +101,32 @@ class _HomePageState extends State<HomePage> {
                     // color: Colors.white,
                   )),
               BottomNavigationBarItem(
-                  label: "السلة",
-                  icon: Icon(
+                label: "السلة",
+                icon: Stack(children: [
+                  Icon(
                     Icons.shopping_bag,
                     //color: Colors.white,
-                  )),
+                  ),
+                  products.length != 0
+                      ? Positioned(
+                          right: 10,
+                          child: Container(
+                            height: 20,
+                            width: 20,
+                            child: Center(
+                              child: Text(
+                                products.length.toString(),
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                            decoration: BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.circular(30)),
+                          ),
+                        )
+                      : SizedBox()
+                ]),
+              ),
               BottomNavigationBarItem(
                   label: "الرائيسية",
                   icon: Icon(

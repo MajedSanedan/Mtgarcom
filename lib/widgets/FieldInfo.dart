@@ -7,12 +7,14 @@ class FieldInfo extends StatelessWidget {
       this.textedcontroller,
       this.validator,
       this.maxline = 1,
-      this.hieght = 45.87});
+      this.hieght = 45.87,
+      this.enable});
   final String label;
   final TextEditingController? textedcontroller;
   final String? Function(String?)? validator;
   final int? maxline;
   final double? hieght;
+  final bool? enable;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -33,6 +35,7 @@ class FieldInfo extends StatelessWidget {
           height: hieght,
           width: 281.61,
           child: TextFormField(
+            enabled: enable,
             maxLines: maxline,
             style: TextStyle(fontSize: 16),
             validator: validator,

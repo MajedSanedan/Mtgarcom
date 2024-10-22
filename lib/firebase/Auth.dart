@@ -42,22 +42,26 @@ class UserAuth {
     try {
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: user.email, password: user.passowrd);
-      // if (credential.user!.emailVerified) {
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
-      // } else {
-      //   showDialog(
-      //       context: context,
-      //       builder: (context) {
-      //         return CusttomDialog(
-      //           color: Colors.red,
-      //           title: "خـــطــاء",
-      //           icon: Icons.warning,
-      //           Message:
-      //               "الرجاء التاكد من بريدك ارسلنا لك رابط التحق الى ${FirebaseAuth.instance.currentUser!.email}",
-      //         );
-      //       });
-      // }
+      if (credential.user!.emailVerified == false) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CusttomDialog(
+              ok: () {
+                Navigator.pop(context);
+              },
+              icon: Icons.warning,
+              title: "تنبية",
+              Message:
+                  "الرجاء التحقق من بريدك الإلكتروني لقد ارسلنا لك رابط التحقق ",
+              color: Colors.red,
+            );
+          },
+        );
+      } else {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => HomePage()));
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-credential') {
         showDialog(
@@ -130,6 +134,24 @@ class UserAuth {
           );
         },
       );
+    }
+  }
+
+  Future? UpdateUserProfile(UserModel user) async {
+    try {
+      final credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: user.email!,
+        password: user.passowrd,
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
+    } catch (e) {
+      print(e);
     }
   }
 }

@@ -1,12 +1,12 @@
-import 'package:comestore/widgets/CartInfo.dart';
-import 'package:comestore/widgets/CartView.dart';
 import 'package:comestore/widgets/MainTitle.dart';
+import 'package:comestore/widgets/ProductDistinctiveView.dart';
+import 'package:comestore/widgets/ProductView.dart';
 import 'package:comestore/widgets/SearchTextField.dart';
 import 'package:flutter/material.dart';
 
-class CartPage extends StatelessWidget {
-  const CartPage({super.key});
-
+class ProductDistinctiVeviewPage extends StatelessWidget {
+  const ProductDistinctiVeviewPage({super.key, this.nameCategory});
+  final String? nameCategory;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,18 +24,20 @@ class CartPage extends StatelessWidget {
                 height: 10,
               ),
               MainTitle(
-                title: "الـــــــــــــســـــــــــلـــــــــــــة",
+                title: "الـــــمــــنـــــتـــجات",
                 ontap: () {
                   Navigator.pop(context);
                 },
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              Expanded(child: CartView()),
               SizedBox(
-                height: 16,
+                height: 30,
               ),
+              Expanded(
+                  child: ProductDistinctiVeview(
+                reverse: false,
+                axis: Axis.vertical,
+                across: 2,
+              )),
             ],
           ),
         ),

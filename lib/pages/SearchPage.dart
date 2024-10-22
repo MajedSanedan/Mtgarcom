@@ -1,12 +1,12 @@
-import 'package:comestore/widgets/CartInfo.dart';
-import 'package:comestore/widgets/CartView.dart';
 import 'package:comestore/widgets/MainTitle.dart';
+import 'package:comestore/widgets/ProductView.dart';
 import 'package:comestore/widgets/SearchTextField.dart';
+import 'package:comestore/widgets/SearchviewProduct.dart';
 import 'package:flutter/material.dart';
 
-class CartPage extends StatelessWidget {
-  const CartPage({super.key});
-
+class SearchPage extends StatelessWidget {
+  const SearchPage({super.key, this.wordSearch});
+  final String? wordSearch;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +24,7 @@ class CartPage extends StatelessWidget {
                 height: 10,
               ),
               MainTitle(
-                title: "الـــــــــــــســـــــــــلـــــــــــــة",
+                title: "نتـــائــج البـــحث",
                 ontap: () {
                   Navigator.pop(context);
                 },
@@ -32,10 +32,10 @@ class CartPage extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              Expanded(child: CartView()),
-              SizedBox(
-                height: 16,
-              ),
+              Expanded(
+                  child: SearchViewProduct(
+                wordSearch: wordSearch,
+              ))
             ],
           ),
         ),

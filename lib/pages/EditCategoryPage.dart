@@ -37,11 +37,10 @@ class _AddCategoryPageState extends State<EditCategoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "مــتـجـر كـــــوم ",
-          style: TextStyle(fontSize: 24),
-        ),
-      ),
+          title: Text(
+        "مــــــتــــــجــــــــــــــر  كـــــــــــــــوم",
+        style: TextStyle(fontSize: 20),
+      )),
       body: isLoading
           ? Loading()
           : Center(

@@ -1,7 +1,9 @@
 import 'package:comestore/pages/CategoriesPage.dart';
 import 'package:comestore/pages/ManagmentCategories.dart';
+import 'package:comestore/pages/ProductDistinctiVeviewPage.dart';
 import 'package:comestore/pages/ProductsViewPage.dart';
 import 'package:comestore/widgets/BanerHome.dart';
+import 'package:comestore/widgets/CategoryDistinctiveView.dart';
 import 'package:comestore/widgets/ProductDistinctiveView.dart';
 import 'package:comestore/widgets/SearchTextField.dart';
 import 'package:comestore/widgets/SectionHomeView.dart';
@@ -21,7 +23,7 @@ class HomeViewPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Column(
+        title: Column(
           children: [
             Text(" مــتـجـر كـــــــــــــوم - الرائيسية"),
             SearchTextField(),
@@ -78,10 +80,10 @@ class HomeViewPage extends StatelessWidget {
                   ),
                 ],
               ),
-              // SizedBox(
-              //   height: 120,
-              //   child: CategoryDistinctiveView(),
-              // ),
+              SizedBox(
+                height: 120,
+                child: CategoryDistinctiveView(),
+              ),
               const SizedBox(
                 height: 20,
               ),
@@ -90,7 +92,7 @@ class HomeViewPage extends StatelessWidget {
                   InkWell(
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => ProductsViewPage()));
+                          builder: (context) => ProductDistinctiVeviewPage()));
                     },
                     child: Text(
                       "عرض الكل",
@@ -113,7 +115,11 @@ class HomeViewPage extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 150, child: ProductDistinctiVeview()),
+              SizedBox(
+                  height: 150,
+                  child: ProductDistinctiVeview(
+                    reverse: true,
+                  )),
               SizedBox(
                 height: 20,
               ),

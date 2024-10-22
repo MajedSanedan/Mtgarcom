@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CartInfo extends StatelessWidget {
-  const CartInfo(
+  CartInfo(
       {super.key, this.ontap, required this.totalPrice, required this.count});
   final GestureTapCallback? ontap;
-  final double totalPrice;
+  double totalPrice;
   final int count;
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class CartInfo extends StatelessWidget {
         ),
         Container(
           height: 50,
-          width: 121.63,
+          width: 150,
           decoration: BoxDecoration(
               border: Border.all(),
               borderRadius: BorderRadius.circular(7),
