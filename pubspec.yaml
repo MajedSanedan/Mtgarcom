@@ -48,8 +48,9 @@ dev_dependencies:
     sdk: flutter
 
 flutter_native_splash:
- color: "#42a5f5"  # Background color
- image: assets/splashScreen.png # Path to your logo image
+ color: "#1E1E1E"  # Background color
+ image: assets/images/splashScreen.png # Path to your logo image
+ android_gravity: fill
  android: true  # Enable for Android
  ios: true  # Enable for iOS
  fullscreen: true  

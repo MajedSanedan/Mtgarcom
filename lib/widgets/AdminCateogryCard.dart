@@ -18,7 +18,9 @@ class AdminCategoryCard extends StatelessWidget {
           onLongPress: onLongPress,
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => ManagmentProductsPage()));
+                builder: (context) => ManagmentProductsPage(
+                      categoryName: categoryModel.name,
+                    )));
           },
           child: Container(
             height: 77.84,

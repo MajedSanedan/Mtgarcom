@@ -7,8 +7,8 @@ import 'package:comestore/widgets/SearchTextField.dart';
 import 'package:flutter/material.dart';
 
 class ManagmentProductsPage extends StatelessWidget {
-  const ManagmentProductsPage({super.key});
-
+  const ManagmentProductsPage({super.key, this.categoryName});
+  final String? categoryName;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +47,7 @@ class ManagmentProductsPage extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              Expanded(child: AdminProducstView())
+              Expanded(child: AdminProducstView(CategoryName: categoryName!))
             ],
           ),
         ),

@@ -11,8 +11,8 @@ import 'package:comestore/widgets/ProductCard.dart';
 import 'package:flutter/material.dart';
 
 class AdminProducstView extends StatefulWidget {
-  AdminProducstView({super.key});
-
+  AdminProducstView({super.key, required this.CategoryName});
+  final String CategoryName;
   @override
   State<AdminProducstView> createState() => _AdminProducstViewState();
 }
@@ -25,7 +25,7 @@ class _AdminProducstViewState extends State<AdminProducstView> {
   bool isLoading = true;
 
   Future<void> getData() async {
-    products = await firestoreGet.getProducts();
+    products = await firestoreGet.getProductsWithCategory(widget.CategoryName!);
     setState(() {
       isLoading = false;
     });
